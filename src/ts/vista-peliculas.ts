@@ -49,9 +49,8 @@ export class VistaPeliculas {
       masOscars: document.querySelector(".js-mas-oscars"),
       masReciente: document.querySelector(".js-mas-reciente"),
       directoresLista: document.querySelector(".js-lista-directores"),
-      peliculasDirectorLista: document.querySelector(".js-lista-directores .js-lista-peliculas-directores"),
-      directorBaseNode: document.querySelector(".js-director-base").cloneNode(true) as HTMLElement,
-      peliculaDirectorBaseNode: document.querySelector(".js-pelicula-director-base").cloneNode(true) as HTMLElement,
+      directorBaseNode: document.querySelector(".js-director-base"),
+      peliculaDirectorBaseNode: document.querySelector(".js-pelicula-director-base"),
     };
   }
 
@@ -131,16 +130,18 @@ export class VistaPeliculas {
     this.limpiarDirectores();
 
     _.forEach(this.controladorPeliculas.getDirectores(), d => {
-      const directorNode: HTMLElement = this.HTML.directorBaseNode.cloneNode(true) as HTMLElement;
-      this.HTML.directorBaseNode.querySelector(".js-director").textContent = d;
-      this.HTML.directoresLista.appendChild(directorNode);
+      const nuevoDirector: HTMLElement = this.HTML.directorBaseNode.cloneNode(true) as HTMLElement;
+      nuevoDirector.querySelector(".js-director").textContent = d;
 
+      const peliculasDirector: HTMLElement = nuevoDirector.querySelector(".js-lista-peliculas-directores");
       _.forEach(this.controladorPeliculas.getPeliculasByDirector(d), p => {
-        const peliculaDirectorNode: HTMLElement = this.HTML.peliculaDirectorBaseNode.cloneNode(true) as HTMLElement;
-        this.HTML.peliculaDirectorBaseNode.querySelector(".js-titulo").textContent = p.titulo;
-        this.HTML.peliculaDirectorBaseNode.querySelector(".js-anyo").textContent = p.getYear();
-        this.HTML.peliculasDirectorLista.appendChild(peliculaDirectorNode);
+        const nuevaPeliculaDirector: HTMLElement = this.HTML.peliculaDirectorBaseNode.cloneNode(true) as HTMLElement;
+        nuevaPeliculaDirector.querySelector(".js-titulo").textContent = p.titulo;
+        nuevaPeliculaDirector.querySelector(".js-anyo").textContent = p.getYear();
+        peliculasDirector.appendChild(nuevaPeliculaDirector);
       });
+
+      this.HTML.directoresLista.appendChild(nuevoDirector);
     });
   }
 }

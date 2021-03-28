@@ -8,7 +8,6 @@ export interface IHTML {
   masOscars: HTMLElement;
   masReciente: HTMLElement;
   directoresLista: HTMLElement;
-  peliculasDirectorLista: HTMLElement;
   directorBaseNode: HTMLElement;
   peliculaDirectorBaseNode: HTMLElement;
 }
